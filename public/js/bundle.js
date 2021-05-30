@@ -1778,9 +1778,9 @@ module.exports = {
 
 },{"./helpers/bind":18}],29:[function(require,module,exports){
 var axios = require('axios');
-const { backendurl } = require('../../secrets');
+// const { backendurl } = require('../../secrets');
 
-
+const backendurl=processs.env.BACKEND_URL;
 
 // ====================================signup =====================================
 var signupbutton = document.querySelector('.btn.signupbutton');
@@ -1891,6 +1891,7 @@ if(newmeetingbtn){
 }
 
 if(joinmeetingbtn){
+  // console.log(en)
   joinmeetingbtn.addEventListener('click',async()=>{
     try{
       let meetingId=joinmeeting.value;
@@ -2006,11 +2007,4 @@ if(allparticipants){
     });
 
 }
-},{"../../secrets":30,"axios":2}],30:[function(require,module,exports){
-const url='mongodb+srv://shubham:shubham@cluster0.rkq1t.mongodb.net/test?retryWrites=true&w=majority'
-const backendurl='http://localhost:3000'
-module.exports={
-    url,
-    backendurl
-}
-},{}]},{},[29]);
+},{"axios":2}]},{},[29]);

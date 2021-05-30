@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const { url } = require('../secrets');
-
+// const { url } = require('../secrets');
+const url=processs.env.URL;
 const Schema = mongoose.Schema;
 
 mongoose.connect(url, {

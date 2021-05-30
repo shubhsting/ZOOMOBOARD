@@ -60,7 +60,7 @@ script.
     }
     return "";
   }
-  const socket = io.connect("http://localhost:3000",{query:"email="+getCookie("email")+"&meetingId="+getCookie("meeting")});
+  const socket = io.connect("https://zoomoboard.herokuapp.com/",{query:"email="+getCookie("email")+"&meetingId="+getCookie("meeting")});
 script(src='./js/mode.js')
 script(src='./js/write.js')
 script(src='./js/undo.js')

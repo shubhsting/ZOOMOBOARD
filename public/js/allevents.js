@@ -1,7 +1,7 @@
 var axios = require('axios');
-const { backendurl } = require('../../secrets');
+// const { backendurl } = require('../../secrets');
 
-
+const backendurl=processs.env.BACKEND_URL;
 
 // ====================================signup =====================================
 var signupbutton = document.querySelector('.btn.signupbutton');
