@@ -2485,10 +2485,11 @@ module.exports.parse = parse
 
 }).call(this)}).call(this,require('_process'))
 },{"_process":4,"fs":1,"os":2,"path":3}],33:[function(require,module,exports){
+(function (process){(function (){
 var axios = require('axios');
 // const { backendurl } = require('../../secrets');
 require('dotenv').config()
-const backendurl=processs.env.BACKEND_URL;
+const backendurl=process.env.BACKEND_URL;
 
 // ====================================signup =====================================
 var signupbutton = document.querySelector('.btn.signupbutton');
@@ -2715,4 +2716,5 @@ if(allparticipants){
     });
 
 }
-},{"axios":5,"dotenv":32}]},{},[33]);
+}).call(this)}).call(this,require('_process'))
+},{"_process":4,"axios":5,"dotenv":32}]},{},[33]);
