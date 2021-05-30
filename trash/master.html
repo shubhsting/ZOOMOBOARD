@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="../public/css/styleboard.css">
+<link rel="stylesheet" href="../public/css/sidebar.css">
+<body>
+
+
+    <div class="main_box">
+        <input type="checkbox" id="check">
+        <div class="btn_one">
+          <label for="check">
+            <i class="fas fa-bars"></i>
+          </label>
+        </div>
+        <div class="sidebar_menu">
+          <div class="logo">
+            <a href="#">CodingLab</a>
+              </div>
+            <div class="btn_two">
+              <label for="check">
+                <i class="fas fa-times"></i>
+              </label>
+            </div>
+          <div class="menu">
+            <ul>
+              <li><i class="fas fa-qrcode"></i>
+                <a href="#">Dashboard</a>
+              </li>
+              <li>
+                <i class="fas fa-link"></i>
+                <a href="#">Shortcuts</a>
+              </li>
+              <li>
+                <i class="fas fa-stream"></i>
+                <a href="#">Overview</a>
+              </li>
+              <li>
+                <i class="fas fa-calendar-week"></i>
+                <a href="#">Events</a>
+              </li>
+              <li>
+                <i class="fas fa-question-circle"></i>
+                <a href="#">About</a>
+              </li>
+              <li>
+                <i class="fas fa-sliders-h"></i>
+                <a href="#">Services</a>
+              </li>
+              <li>
+                <i class="fas fa-phone-volume"></i>
+                <a href="#">Contact</a>
+              </li>
+              <li>
+              <i class="far fa-comments"></i>
+                <a href="#">Feedback</a>
+              </li>
+            </ul>
+          </div>
+          <div class="social_media">
+            <ul>
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <div class="tools">
+         <div class="toolbox add-animation">
+
+            <div class="tool nightmode" id="pencil">
+                <img src="../public/images/ppo.png" alt="">
+                <div class="tool-options hide" id="pencil-options">
+                    <input type="range" name="" id="pencilSize" value="1" min="1" max="40">
+                    <div class="pencil-colors">
+                        <div class="red"></div>
+                        <div class="yellow"></div>
+                        <div class="blue"></div>
+                        <div class="black"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool" id="eraser">
+                <img src="../public/images/eraser.png" alt="">
+                <div class="tool-options hide" id="eraser-options">
+                    <input type="range" name="" id="eraserSize" value="1" min="1" max="40">
+                </div>
+            </div>
+
+
+            <div class="tool" id="sticky">
+                <img src="../public/images/pad.svg" alt="">
+            </div>
+
+            <div class="tool" id="upload">
+                <img src="../public/images/upload.png" alt="">
+                <input type="file" name="" id="photo-upload" style="display: none;">
+            </div>
+
+            <div class="tool" id="download">
+                <img src="../public/images/download.webp" alt="">
+            </div>
+
+            <div class="tool" id="undo">
+                <img src="../public/images/undo.png" alt="">
+            </div>
+
+            <div class="tool" id="redo">
+                <img src="../public/images/Redo.svg" alt="">
+            </div>
+
+
+            <div class="tool" id="clearall">
+                <img src="../public/images/clearall.png" alt="">
+            </div>
+
+            <div class="tool" id="mode">
+                <img src="../public/images/daymode.png" alt="">
+            </div>
+        </div> 
+    </div>
+    <div class="content">
+        <canvas id="canvas"></canvas>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"
+        integrity="sha512-Jr0UIR/Q8MUX+93zjDOhuDUKLqJZObtwpkLJQcR9qMaLgL0thet39IORuavUaZFkZ8a4ktrUsKPM9mf5LWMduA=="
+        crossorigin="anonymous"></script>
+    <script>
+        const socket = io.connect("http://localhost:3000");
+    </script>
+    <script src="../public/js/mode.js"></script>
+    <script src="../public/js/write.js"></script>
+    <script src="../public/js/undo.js"></script>
+    <script src="../public/js/writeevent.js"></script>
+    <script src="../public/js/sticky.js"></script>
+    <script src="../public/js/socket.js"></script>
+    <script src="../public/js/input.js"></script>
+</body>
+
+</html>

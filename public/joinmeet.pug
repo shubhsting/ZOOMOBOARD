@@ -1,0 +1,26 @@
+doctype html
+head
+  title Join Meeting
+  link(rel='stylesheet' type='text/css' href='css/style.css')
+  link(href='https://fonts.googleapis.com/css?family=Poppins:600&display=swap' rel='stylesheet')
+  script(src='https://kit.fontawesome.com/a81368914c.js')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+img.wave(src='images/wave.png')
+.container
+  .img
+    img(src='images/bg.svg')
+  .login-content
+    .form
+      img(src='images/avatar.svg')
+      h3.title.nameo Hey,#{name}
+      .input-div.one
+        .i
+          i.fas.fa-user
+        .div
+          h5 Meeting ID
+          input.input.joinmeeting(type='text')
+      a(href='/startmeet') Start a new meeting?
+      .error
+      input.btn.joinmeetingbtn(type='submit' value='Join Meeting')
+script(type='text/javascript' src='js/main.js')
+script(type='text/javascript' src='js/bundle.js')

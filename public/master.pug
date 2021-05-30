@@ -1,0 +1,71 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Document
+link(rel='stylesheet' href='./css/styleboard.css')
+link(rel='stylesheet' href='./css/sidebar.css')
+.content
+  //- .op Hello #{name} 
+  canvas#canvas
+.tools
+  .meetingid #{meetingId}
+  .toolbox.add-animation
+    #pencil.tool.nightmode
+      img(src='./images/ppo.png' alt='')
+      #pencil-options.tool-options.hide
+        input#pencilSize(type='range' name='' value='1' min='1' max='40')
+        .pencil-colors
+          .red
+          .yellow
+          .blue
+          .black
+    #eraser.tool
+      img(src='./images/eraser.png' alt='')
+      #eraser-options.tool-options.hide
+        input#eraserSize(type='range' name='' value='1' min='1' max='40')
+    #sticky.tool
+      img(src='./images/pad.svg' alt='')
+    #upload.tool
+      img(src='./images/upload.png' alt='')
+      input#photo-upload(type='file' name='' style='display: none;')
+    #allparticipants.tool 
+      img(src='./images/allp.png' alt='')
+    #download.tool
+      img(src='./images/download.webp' alt='')
+    #undo.tool
+      img(src='./images/undo.png' alt='')
+    #redo.tool
+      img(src='./images/Redo.svg' alt='')
+    #clearall.tool
+      img(src='./images/clearall.png' alt='')
+    #mode.tool
+      img(src='./images/daymode.png' alt='')
+    #endmeet.tool
+      img(src='./images/endmeet.png' alt='')     
+script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js' integrity='sha512-Jr0UIR/Q8MUX+93zjDOhuDUKLqJZObtwpkLJQcR9qMaLgL0thet39IORuavUaZFkZ8a4ktrUsKPM9mf5LWMduA==' crossorigin='anonymous')
+script.
+    function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  const socket = io.connect("http://localhost:3000",{query:"email="+getCookie("email")+"&meetingId="+getCookie("meeting")});
+script(src='./js/mode.js')
+script(src='./js/write.js')
+script(src='./js/undo.js')
+script(src='./js/bundle.js')
+script(src='./js/writeevent.js')
+script(src='./js/sticky.js')
+script(src='./js/socket.js')
+script(src='./js/input.js')
