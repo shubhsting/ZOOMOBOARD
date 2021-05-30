@@ -1,6 +1,6 @@
 var axios = require('axios');
 // const { backendurl } = require('../../secrets');
-
+require('dotenv').config()
 const backendurl=processs.env.BACKEND_URL;
 
 // ====================================signup =====================================
