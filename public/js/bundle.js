@@ -2523,7 +2523,7 @@ if(signupbutton){
 
         axios({
           method: 'post',
-          url: `${backendurl}/api/user/register`,
+          url: `https://zoomoboard.herokuapp.com/api/user/register`,
           data: {
             username,
             email,
@@ -2554,7 +2554,7 @@ if(loginbutton){
         console.log(document.cookie)
         axios({
           method: 'post',
-          url: `${backendurl}/api/user/loginuser`,
+          url: `https://zoomoboard.herokuapp.com/api/user/loginuser`,
           data: {
             email,
             password
@@ -2580,7 +2580,7 @@ if(newmeetingbtn){
       let meetingId=newmeeting.value;
       axios({
         method: 'post',
-        url: `${backendurl}/api/meeting/newmeet`,
+        url: `https://zoomoboard.herokuapp.com/api/meeting/newmeet`,
         data: {
          meetingno:meetingId
         }
@@ -2607,7 +2607,7 @@ if(joinmeetingbtn){
       console.log(meetingId);
       axios({
         method: 'post',
-        url: `${backendurl}/api/meeting/joinmeet`,
+        url: `https://zoomoboard.herokuapp.com/api/meeting/joinmeet`,
         data: {
          meetingno:meetingId
         }
@@ -2660,7 +2660,7 @@ if(allparticipants){
 
         axios({
           method: 'post',
-          url: `${backendurl}/api/user/getParticipant`,
+          url: `https://zoomoboard.herokuapp.com/api/user/getParticipant`,
           data: {
             meetingId
           }
