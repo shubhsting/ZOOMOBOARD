@@ -1,0 +1,38 @@
+doctype html
+head
+  title Sign-Up-Here
+  link(rel='stylesheet' type='text/css' href='css/style.css')
+  link(href='https://fonts.googleapis.com/css?family=Poppins:600&display=swap' rel='stylesheet')
+  script(src='https://kit.fontawesome.com/a81368914c.js')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+img.wave(src='images/wave.png')
+.container
+  .img
+    img(src='images/bg.svg')
+  .login-content
+    .form
+      img(src='images/avatar.svg')
+      h2.title Register
+      .input-div.one
+        .i
+          i.fas.fa-user
+        .div
+          h5 Username
+          input.input.signupusername(type='text')
+      .input-div.one
+        .i
+          i.fas.fa-envelope
+        .div
+          h5 Email
+          input.input.signupemail(type='text')
+      .input-div.pass
+        .i
+          i.fas.fa-lock
+        .div
+          h5 Set Password
+          input.input.signuppassword(type='password')
+      a(href='/login') Already a User? Login
+      .error
+      input.btn.signupbutton(type='submit' value='Signup')
+script(type='text/javascript' src='js/main.js')
+script(type='text/javascript' src='js/bundle.js')
