@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const path = require("path");
 var cookieParser = require('cookie-parser');
@@ -6,7 +7,7 @@ const cors = require('cors');
 const viewRouter = require("./Router/ViewRouter");
 const userRouter = require("./Router/userRouter");
 const meetingRouter = require("./Router/meetingRouter");
-const { updateonJoin ,updateonleave} = require("./Controller/meetingController");
+const { updateonJoin ,updateonleave,findAllSocketIdOfThisMeeting} = require("./Controller/meetingController");
 
 
 
@@ -40,6 +41,8 @@ const io = require("socket.io")(http, {
 io.on("connection", async function (socket) {
     console.log(`${socket.id} connected`);
     await updateonJoin(socket.id,socket.request._query);
+    let {email,meetingId}=socket.request._query
+    socket.join(meetingId);
 
     socket.on('disconnect',async ()=>{
         await updateonleave(socket.id,socket.request._query)
@@ -51,25 +54,31 @@ io.on("connection", async function (socket) {
     //     socket.broadcast.emit("imgcome", data);
     // })
     socket.on("modechange", function (data) {
-        console.log("mode changed by",socket.id);
-        socket.broadcast.emit("mc", data);
+        // console.log("mode changed by",socket.id);
+        // console.log("mode changed ",data.email,data.meetingId)
+        // await findAllSocketIdOfThisMeeting(data.email,data.meetingId);
+        socket.to(data.meetingId).emit("mc", data.info);
     })
     socket.on("mousedown", function (data) {
-        socket.broadcast.emit("md", data);
+        // console.log("mousedown ho gya",data.email,data.meetingId)
+        socket.to(data.meetingId).emit("md", data.info);
     });
 
 
     socket.on("mousemove", function (data) {
-        socket.broadcast.emit("mm", data);
+        // console.log("mousemove ho ra hai",data.email,data.meetingId)
+        socket.to(data.meetingId).emit("mm", data.info);
     })
 
     socket.on("stickyaagya", function (data) {
-        socket.broadcast.emit("staagya", data);
+        // console.log("sticky aa gya",data.email,data.meetingId)
+        socket.to(data.meetingId).emit("staagya", data.info);
     })
 
 
     socket.on("clearall", function (data) {
-        socket.broadcast.emit("clrall", data);
+        // console.log("clear all ho ra hai",data.email,data.meetingId)
+        socket.to(data.meetingId).emit("clrall", data.info);
     })
 });
 const port = process.env.PORT || 3000;

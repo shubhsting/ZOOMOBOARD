@@ -1,6 +1,20 @@
 let stickyo = document.querySelector("#sticky");
 
-
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 stickyo.addEventListener("click", function (e) {
     stickyo.classList.add("nightmode");
     let sticky = document.createElement("div");
@@ -93,6 +107,6 @@ stickyo.addEventListener("click", function (e) {
     }, 300);
 
 
-    socket.emit("stickyaagya", sticky);
+    socket.emit("stickyaagya", {info:sticky,email:getCookie("email"),meetingId:getCookie("meeting")});
 
 })

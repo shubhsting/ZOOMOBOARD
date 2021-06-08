@@ -8,7 +8,7 @@ const userModel = require('../Model/userModel');
 async function updateonJoin(socketId, obj) {
     try {
         let { email, meetingId } = obj;
-        console.log(email, meetingId);
+        // console.log(email, meetingId);
         let meeting;
 
         meeting = await meetingModel.findOne({
@@ -29,16 +29,16 @@ async function updateonJoin(socketId, obj) {
 
 
         let meetingArr = meeting.participants;
-        let newArr=[];
-        for(let i=0;i<meetingArr.length;i++){
-            if(meetingArr[i].email!==email) newArr.push(meetingArr[i]);
+        let newArr = [];
+        for (let i = 0; i < meetingArr.length; i++) {
+            if (meetingArr[i].email !== email) newArr.push(meetingArr[i]);
         }
         // meetingArr = meetingArr.filter((userI) => {
         //     userI.email !== email
         // })
-        console.log(newArr)
+        // console.log(newArr)
         newArr.push(user);
-        await meetingModel.findByIdAndUpdate(meeting.id, { participants: newArr ,meetingEnded:false}, { new: true })
+        await meetingModel.findByIdAndUpdate(meeting.id, { participants: newArr, meetingEnded: false }, { new: true })
 
     }
     catch (e) {
@@ -50,7 +50,7 @@ async function updateonJoin(socketId, obj) {
 async function updateonleave(socketId, obj) {
     try {
         let { email, meetingId } = obj;
-        console.log("leave function", email, meetingId);
+        // console.log("leave function", email, meetingId);
         let meeting;
 
         meeting = await meetingModel.findOne({
@@ -66,12 +66,12 @@ async function updateonleave(socketId, obj) {
 
         let meetingArr = meeting.participants;
 
-        let newArr=[];
-        for(let i=0;i<meetingArr.length;i++){
-            if(meetingArr[i].email!==email) newArr.push(meetingArr[i]);
+        let newArr = [];
+        for (let i = 0; i < meetingArr.length; i++) {
+            if (meetingArr[i].email !== email) newArr.push(meetingArr[i]);
         }
         if (newArr.length === 0) {
-            await meetingModel.findByIdAndUpdate(meeting.id, { meetingEnded: true ,participants: newArr}, { new: true });
+            await meetingModel.findByIdAndUpdate(meeting.id, { meetingEnded: true, participants: newArr }, { new: true });
         }
         else {
             await meetingModel.findByIdAndUpdate(meeting.id, { participants: newArr }, { new: true });
@@ -102,7 +102,7 @@ async function createMeeting(req, res) {
 
         let meetinguser;
         if (user.currentMeetingID) {
-             meetinguser = await meetingModel.findOne({
+            meetinguser = await meetingModel.findOne({
                 meetingID: user.currentMeetingID
             })
             if (meetinguser.participants.length > 0 && !meetinguser.meetingEnded)
@@ -116,15 +116,15 @@ async function createMeeting(req, res) {
 
         if (meeting && !meeting.meetingEnded) return res.status(400).send("Meeting already exists");
 
-        if(!meeting){
+        if (!meeting) {
             meetinguser = await meetingModel.create({
                 meetingID: meetingno,
-                startTime:moment.now(),
-                participants:[]
+                startTime: moment.now(),
+                participants: []
             })
         }
-        else{
-            meetinguser=await meetingModel.findByIdAndUpdate(meeting.id,{startTime:moment.now(),participants:[],meetingEnded:false})
+        else {
+            meetinguser = await meetingModel.findByIdAndUpdate(meeting.id, { startTime: moment.now(), participants: [], meetingEnded: false })
         }
 
         user.currentMeetingID = meetingno;
@@ -231,7 +231,7 @@ async function joinMeeting(req, res) {
 
         let meetinguser;
         if (user.currentMeetingID) {
-             meetinguser = await meetingModel.findOne({
+            meetinguser = await meetingModel.findOne({
                 meetingID: user.currentMeetingID
             })
             if (meetinguser.participants.length > 0 && !meetinguser.meetingEnded)
@@ -254,11 +254,31 @@ async function joinMeeting(req, res) {
 }
 
 
+async function findAllSocketIdOfThisMeeting(email, meetingId) {
+    try {
+        let meeting = await meetingModel.findOne({
+            meetingID: meetingId
+        });
+        if (!meeting || meeting.meetingEnded) return;
+        let sockets = [];
+        let isAdmin = false;
+        let participants = meeting.participants;
+        participants.forEach((entry) => {
+            sockets.push(entry.socketID);
+            if (entry.email === email) isAdmin = entry.isAdmin ? entry.isAdmin : false;
+        })
+        return { isAdmin:true, sockets }
+    }
+    catch (e) {
+
+    }
+}
 
 module.exports = {
     createMeeting,
     updateonJoin,
     updateonleave,
-    joinMeeting
+    joinMeeting,
+    findAllSocketIdOfThisMeeting
 }
 

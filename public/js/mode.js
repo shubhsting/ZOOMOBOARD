@@ -5,9 +5,23 @@ let tbx = document.querySelector(".toolbox");
 // ctx.fillStyle = "blue";
 // ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 modediv.addEventListener("click", function () {
-    socket.emit("modechange", tbx);
+    socket.emit("modechange", {info:tbx,email:getCookie("email"),meetingId:getCookie("meeting")});
     let flag = modediv.classList.contains("nightmode");
     if (flag) {
         modediv.classList.remove("nightmode");

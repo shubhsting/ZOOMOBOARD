@@ -26,10 +26,24 @@ canvas.addEventListener("mousedown", function (e) {
         w: ctx.lineWidth
     }
     undo.push(point);
-    socket.emit("mousedown", point);
+    socket.emit("mousedown", {info:point,email:getCookie("email"),meetingId:getCookie("meeting")});
     // toolbox.classList.add("hide");
 })
-
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 canvas.addEventListener("mousemove", function (e) {
     if (mousedownflag) {
         let x = e.clientX;
@@ -43,7 +57,7 @@ canvas.addEventListener("mousemove", function (e) {
             w: ctx.lineWidth
         }
         undo.push(point);
-        socket.emit("mousemove", point);
+        socket.emit("mousemove", {info:point,email:getCookie("email"),meetingId:getCookie("meeting")});
         ctx.stroke();
     }
 
