@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "browserify allevents.js -o bundle.js",
-    "random":"browserify allevents.js -t [ envify --BACKEND_URL http://localhost:3000 ] > bundle.js"
+    "dev": "browserify allevents.js -o bundle.js https://zoomoboard.herokuapp.com/",
+    "random":"browserify allevents.js -t [ envify --BACKEND_URL https://zoomoboard.herokuapp.com ] > bundle.js"
   },
   "keywords": [],
   "author": "",

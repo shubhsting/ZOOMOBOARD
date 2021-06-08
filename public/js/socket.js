@@ -7,7 +7,7 @@ socket.on("md", function (point) {
     ctx.lineWidth = point.w;
     ctx.beginPath();
     ctx.moveTo(point.x, point.y);
-    toolbox.classList.add("hide");
+    // toolbox.classList.add("hide");
     undo.push(point);
     ctx.lineWidth = myWidth;
     ctx.strokeStyle = myStrokeStyle;
