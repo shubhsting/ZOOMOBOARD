@@ -9,7 +9,18 @@ async function showBoard(req, res) {
         let email = req.cookies.email;
 
         let meetingId=req.cookies.meeting;
-
+        if(!meetingId){
+            if(email){
+                let user=await userModel.findOne({
+                    email:email
+                });
+                res.render('joinmeet.pug',{name:user.name});
+            }
+            else{
+                res.render('login.pug');
+            }
+            return;
+        }
         let meeting=await meetingModel.findOne({
             meetingID:meetingId
         })

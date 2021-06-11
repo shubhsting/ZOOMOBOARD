@@ -8,7 +8,16 @@ body{
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
 }
-
+.ranomc{
+	margin-right: 1%;
+}
+.hello{
+	display: flex;
+    align-items: baseline;
+    justify-content: center;
+    width: 100%;
+	font-size: 94%;
+}
 .wave{
 	position: fixed;
 	bottom: 0;

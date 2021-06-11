@@ -153,9 +153,6 @@ async function endMeeting(req, res) {
             return res.status(400).send("Meeting doesn't exist or already ended");
         }
 
-        await meetingModel.deleteOne({
-            meetingID: meetingID
-        });
 
         res.cookie('meeting', null);
         res.status(200).send("Meeting Ended");
@@ -169,30 +166,8 @@ async function endMeeting(req, res) {
 
 async function leaveMeeting(req, res) {
     try {
-        const { meetingno } = req.body;
-
-        let meeting = await meetingModel.findOne({
-            meetingID: meetingno
-        });
-
-        if (!meeting) return res.status(400).send("Meeting doesn't exist");
-
-        let email = req.cookies.email;
-        if (!email) return res.status(400).send("Invalid user!");
-
-        let user = await userModel.findOne({
-            email: email
-        })
-
-        if (!user) return res.status(400).send("Invalid user!");
-
-
-
-
-        user.currentMeetingID = null;
-
-        await user.save();
-        res.cookie('meeting', meetingno);
+        // const { meetingno } = req.body;
+        res.clearCookie('meeting', null);
         res.status(200).send("Successfuly joined!")
     }
     catch (e) {
@@ -279,6 +254,7 @@ module.exports = {
     updateonJoin,
     updateonleave,
     joinMeeting,
+    leaveMeeting,
     findAllSocketIdOfThisMeeting
 }
 

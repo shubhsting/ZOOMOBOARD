@@ -2485,11 +2485,11 @@ module.exports.parse = parse
 
 }).call(this)}).call(this,require('_process'))
 },{"_process":4,"fs":1,"os":2,"path":3}],33:[function(require,module,exports){
-(function (process){(function (){
+require('dotenv').config()
 var axios = require('axios');
 // const { backendurl } = require('../../secrets');
-require('dotenv').config()
-const backendurl=process.env.BACKEND_URL;
+
+// const backendurl=process.env.process.env.BACKEND_URL;
 
 // ====================================signup =====================================
 var signupbutton = document.querySelector('.btn.signupbutton');
@@ -2514,6 +2514,31 @@ var newmeetingbtn=document.querySelector('.newmeetingbtn');
 var joinmeeting=document.querySelector('.joinmeeting');
 var joinmeetingbtn=document.querySelector('.joinmeetingbtn');
 
+
+var endmeet=document.querySelector('#endmeet');
+
+
+if(endmeet){
+  endmeet.addEventListener("click",async()=>{
+    try{
+      axios({
+        method: 'post',
+        url: `${"https://zoomoboard.herokuapp.com"}/api/meeting/leavemeet`,
+      })
+        .then((res) => {
+          if (res.status === 200) { console.log("meeting ended!");window.location.href='/joinmeet'; }
+        })
+        .catch(err => {
+          if (err.request) { console.log(err.request); }
+          if (err.response) {error.innerHTML=err.response.data;}
+        });
+    }
+    catch(e){
+      console.log(e);
+    }
+  })
+}
+
 if(signupbutton){
     signupbutton.addEventListener("click", async () => {
       try {
@@ -2523,7 +2548,7 @@ if(signupbutton){
 
         axios({
           method: 'post',
-          url: `https://zoomoboard.herokuapp.com/api/user/register`,
+          url: `${"https://zoomoboard.herokuapp.com"}/api/user/register`,
           data: {
             username,
             email,
@@ -2550,11 +2575,12 @@ if(loginbutton){
         // let username = signupusername.value;
         let email = loginemail.value;
         let password = loginpassword.value;
+        console.log("hello","https://zoomoboard.herokuapp.com");
         // console.log(req.cookies);
         console.log(document.cookie)
         axios({
           method: 'post',
-          url: `https://zoomoboard.herokuapp.com/api/user/loginuser`,
+          url: `${"https://zoomoboard.herokuapp.com"}/api/user/loginuser`,
           data: {
             email,
             password
@@ -2580,7 +2606,7 @@ if(newmeetingbtn){
       let meetingId=newmeeting.value;
       axios({
         method: 'post',
-        url: `https://zoomoboard.herokuapp.com/api/meeting/newmeet`,
+        url: `${"https://zoomoboard.herokuapp.com"}/api/meeting/newmeet`,
         data: {
          meetingno:meetingId
         }
@@ -2607,7 +2633,7 @@ if(joinmeetingbtn){
       console.log(meetingId);
       axios({
         method: 'post',
-        url: `https://zoomoboard.herokuapp.com/api/meeting/joinmeet`,
+        url: `${"https://zoomoboard.herokuapp.com"}/api/meeting/joinmeet`,
         data: {
          meetingno:meetingId
         }
@@ -2660,7 +2686,7 @@ if(allparticipants){
 
         axios({
           method: 'post',
-          url: `https://zoomoboard.herokuapp.com/api/user/getParticipant`,
+          url: `${"https://zoomoboard.herokuapp.com"}/api/user/getParticipant`,
           data: {
             meetingId
           }
@@ -2716,5 +2742,4 @@ if(allparticipants){
     });
 
 }
-}).call(this)}).call(this,require('_process'))
-},{"_process":4,"axios":5,"dotenv":32}]},{},[33]);
+},{"axios":5,"dotenv":32}]},{},[33]);
